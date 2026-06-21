@@ -1,0 +1,182 @@
+{
+  "info": {
+    "_postman_id": "a1f3c2d4-5e6b-47a8-9c0d-1e2f3a4b5c6d",
+    "name": "Placekey API",
+    "description": "Placekey resolves an address, POI, or latitude/longitude into a universal Placekey identifier. Single lookups use POST /placekey and bulk lookups (up to 100 queries) use POST /placekeys. Authenticate with the apikey request header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.placekey.io/v1"
+    },
+    {
+      "key": "apikey",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Lookup",
+      "description": "Single Placekey lookup.",
+      "item": [
+        {
+          "name": "Look up a single Placekey",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/placekey",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "placekey"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": {\n    \"latitude\": 37.7371,\n    \"longitude\": -122.44283\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Resolves a single address, POI, or latitude/longitude pair into a Placekey identifier."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "apikey",
+                    "value": "{{apikey}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/placekey",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "placekey"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": {\n    \"latitude\": 37.7371,\n    \"longitude\": -122.44283\n  }\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query_id\": \"0\",\n  \"placekey\": \"227-223@5vg-82n-pgk\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bulk",
+      "description": "Bulk Placekey lookup.",
+      "item": [
+        {
+          "name": "Look up Placekeys in bulk",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/placekeys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "placekeys"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Resolves up to 100 queries per request. All queries in a batch must share the same iso_country_code; an optional query_id is echoed back."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "apikey",
+                    "value": "{{apikey}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/placekeys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "placekeys"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    { \"query_id\": \"0\", \"latitude\": 37.7371, \"longitude\": -122.44283, \"iso_country_code\": \"US\" }\n  ]\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"query_id\": \"0\",\n    \"placekey\": \"227-223@5vg-82n-pgk\"\n  }\n]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

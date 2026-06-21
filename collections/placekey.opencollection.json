@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Placekey API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Look up a single Placekey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.placekey.io/v1/placekey",
+            "headers": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": {\n    \"latitude\": 37.7371,\n    \"longitude\": -122.44283\n  }\n}"
+            }
+          },
+          "docs": "Resolves a single address, POI, or latitude/longitude pair into a Placekey identifier. Authenticate with the apikey header."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Look up Placekeys in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.placekey.io/v1/placekeys",
+            "headers": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Resolves up to 100 queries per request into Placekey identifiers. All queries in a batch must share the same iso_country_code; an optional query_id is echoed back."
+        }
+      ]
+    }
+  ]
+}

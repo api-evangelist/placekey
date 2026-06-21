@@ -1,0 +1,62 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Placekey
+providerId: placekey
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Location
+- Geocoding
+- Address Matching
+- Identifiers
+- POI
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Placekey API enforces per-endpoint request-rate limits over a rolling
+  60-second window plus a per-plan daily/annual lookup allowance. The single
+  lookup endpoint (POST /placekey) allows up to 1,000 requests per 60-second
+  window; the bulk endpoint (POST /placekeys) allows up to 100 requests per
+  60-second window with a maximum of 100 queries per request.
+notes: >-
+  Per-window request limits reflect publicly documented Placekey API values;
+  daily/annual lookup allowances vary by plan (see plans artifact). Verify
+  against the Placekey documentation during reconciliation.
+sources:
+- https://docs.placekey.io/documentation/placekey-api/quick-start
+- https://docs.placekey.io/documentation/placekey-api/bulk-api
+- https://www.placekey.io/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Single Lookup Requests Per Window
+  scope: account
+  metric: requests
+  limit: 1000 per 60 seconds
+  notes: Applies to POST /placekey.
+- name: Bulk Lookup Requests Per Window
+  scope: account
+  metric: requests
+  limit: 100 per 60 seconds
+  notes: Applies to POST /placekeys.
+- name: Bulk Batch Size
+  scope: request
+  metric: queries
+  limit: 100 per request
+  notes: A single bulk request may contain at most 100 queries, all sharing the same iso_country_code.
+- name: Daily / Annual Lookups
+  scope: account
+  metric: lookups
+  limit: per plan
+  notes: Free plan allows 10,000 lookups per day; paid plans set higher annual allowances.
+policies:
+- name: Plan-Based Quotas
+  description: Lookup allowances increase across Free, Silver, Gold, and Enterprise plans.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on HTTP 429 responses and stay within the per-window request limits.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

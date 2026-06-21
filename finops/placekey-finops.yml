@@ -1,0 +1,88 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Placekey
+providerId: placekey
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Location
+- Geocoding
+- Address Matching
+- Identifiers
+- POI
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Placekey API spend. Placekey bills on annual subscription
+  plans (Free, Silver, Gold, Enterprise) sized by lookup allowance rather than
+  pure usage metering. The primary cost driver is the number of Placekey
+  lookups consumed against the plan's daily or annual allowance, across both the
+  single (/placekey) and bulk (/placekeys) endpoints.
+notes: >-
+  Plan prices and lookup allowances are subject to change; verify against the
+  Placekey pricing page during reconciliation.
+sources:
+- https://www.placekey.io/pricing
+- https://docs.placekey.io/documentation/placekey-api/quick-start
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Placekey
+serviceCategory: Location and Mapping
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Placekey API
+  ServiceCategory: Location and Mapping
+  ProviderName: Placekey
+  PublisherName: Placekey
+  InvoiceIssuerName: Placekey
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: lookups
+  description: Placekey lookups consumed against the plan allowance across single and bulk endpoints.
+  unit: lookups
+  aggregation: sum
+  dimensions:
+  - account
+  - endpoint
+- name: bulk_requests
+  description: Bulk requests issued to POST /placekeys, each containing up to 100 queries.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+- name: plan_subscription
+  description: Annual subscription charge for the selected Placekey plan tier.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: Track lookup volume against the plan's daily/annual allowance to anticipate tier upgrades.
+- name: Allocation
+  description: Tag API keys per workload/team and attribute lookups to internal cost centers.
+- name: Optimization
+  description: Use the bulk endpoint (up to 100 queries per request) and cache resolved Placekeys to avoid repeat lookups for the same place.
+- name: Accountability
+  description: Assign plan ownership and review lookup consumption against the annual allowance before renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

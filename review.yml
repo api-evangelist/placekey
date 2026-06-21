@@ -1,0 +1,57 @@
+aid: placekey
+name: Placekey
+review:
+  question: Does Placekey expose a documented public WebSocket or event-driven (AsyncAPI) API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. The Placekey API is a synchronous
+    request/response REST API with no documented streaming, Server-Sent
+    Events, webhook, or WebSocket surface, so there is no event-driven
+    transport to model.
+findings:
+  summary: |
+    Placekey does not publish a documented public WebSocket or event-driven
+    API. The Placekey platform exposes only synchronous REST (HTTPS)
+    endpoints under https://api.placekey.io/v1 - a single lookup endpoint
+    (POST /placekey) and a bulk lookup endpoint (POST /placekeys). Both
+    return a standard JSON response per request. There is no documented
+    realtime, bidirectional, push, callback/webhook, or streaming surface.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.placekey.io/v1
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Placekey API reference or any product page as of the review date.
+    - protocol: Webhooks
+      scheme: https
+      documented: false
+      note: No webhook or callback delivery mechanism is documented.
+  endpointsConfirmedRest:
+    - POST https://api.placekey.io/v1/placekey
+    - POST https://api.placekey.io/v1/placekeys
+sources:
+  - url: https://docs.placekey.io/documentation/placekey-api/quick-start
+    type: Documentation
+    note: Single lookup uses POST /placekey with the apikey header; synchronous JSON response.
+  - url: https://docs.placekey.io/documentation/placekey-api/bulk-api
+    type: Documentation
+    note: Bulk lookup uses POST /placekeys with up to 100 queries per request; synchronous JSON response.
+  - url: https://docs.placekey.io/documentation/placekey-api/response
+    type: APIReference
+    note: Response is a synchronous JSON object (or array) of query_id/placekey results; no streaming or event transport.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or event-driven protocol surface exists. The Placekey API is
+    purely synchronous REST, so only OpenAPI was authored; no AsyncAPI
+    document was created.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
