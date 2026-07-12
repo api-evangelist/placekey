@@ -65,6 +65,10 @@ apis:
     POST /placekeys, with an optional per-query query_id echoed back; all queries
     in a batch must share the same iso_country_code.
 common:
+- type: DomainSecurity
+  url: security/placekey-domain-security.yml
+- type: Authentication
+  url: authentication/placekey-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/Placekey
 - type: LinkedIn

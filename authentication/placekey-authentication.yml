@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/placekey-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: apikey
+  description: Placekey API key supplied in the apikey request header.
+  sources:
+  - openapi/placekey-openapi.yml
