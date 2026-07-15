@@ -65,6 +65,8 @@ apis:
     POST /placekeys, with an optional per-query query_id echoed back; all queries
     in a batch must share the same iso_country_code.
 common:
+- type: AgenticAccess
+  url: agentic-access/placekey-agentic-access.yml
 - type: DomainSecurity
   url: security/placekey-domain-security.yml
 - type: Authentication
