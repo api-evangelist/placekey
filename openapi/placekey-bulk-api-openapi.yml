@@ -1,0 +1,172 @@
+openapi: 3.0.1
+info:
+  title: Placekey Bulk API
+  description: The Placekey API resolves an address, point-of-interest, or latitude/longitude coordinate pair into a Placekey - a free, universal identifier for any physical place. It supports single lookups (POST /placekey) and bulk lookups of up to 100 queries per request (POST /placekeys). Authentication is via the apikey request header.
+  termsOfService: https://www.placekey.io/terms-conditions
+  contact:
+    name: Placekey Support
+    url: https://www.placekey.io/contact
+  version: '1.0'
+servers:
+- url: https://api.placekey.io/v1
+  description: Placekey API v1
+security:
+- apiKey: []
+tags:
+- name: Bulk
+paths:
+  /placekeys:
+    post:
+      operationId: lookupPlacekeysBulk
+      tags:
+      - Bulk
+      summary: Look up Placekeys in bulk
+      description: Resolves up to 100 queries in a single request. Each query may include an optional query_id that is echoed back in the response. All queries in a batch must share the same iso_country_code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkLookupRequest'
+            example:
+              queries:
+              - query_id: '0'
+                street_address: 1543 Mission Street, Floor 3
+                city: San Francisco
+                region: CA
+                postal_code: '94105'
+                iso_country_code: US
+              - query_id: '1'
+                latitude: 37.7371
+                longitude: -122.44283
+                iso_country_code: US
+      responses:
+        '200':
+          description: A list of Placekey results, one per query.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlacekeyResult'
+        '400':
+          description: Bad request - batch exceeds 100 queries or queries are malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid apikey.
+        '429':
+          description: Too Many Requests - rate limit exceeded.
+components:
+  schemas:
+    Query:
+      type: object
+      description: A location query. Provide a latitude/longitude pair and/or address components. Including more fields generally improves match quality.
+      properties:
+        query_id:
+          type: string
+          description: Optional client-supplied identifier echoed back in the response. If omitted in bulk requests, sequential identifiers (0, 1, 2, ...) are generated.
+        latitude:
+          type: number
+          format: double
+          description: Latitude in decimal degrees.
+        longitude:
+          type: number
+          format: double
+          description: Longitude in decimal degrees.
+        location_name:
+          type: string
+          description: The name of the place or point of interest.
+        street_address:
+          type: string
+          description: The street address of the place.
+        city:
+          type: string
+          description: The city the place is in.
+        region:
+          type: string
+          description: The state, province, or region the place is in.
+        postal_code:
+          type: string
+          description: The postal or ZIP code of the place.
+        iso_country_code:
+          type: string
+          description: Two-character ISO 3166-1 alpha-2 country code (e.g. US).
+        place_metadata:
+          $ref: '#/components/schemas/PlaceMetadata'
+    Options:
+      type: object
+      description: Options applied to all queries in the request.
+      properties:
+        strict_address_match:
+          type: boolean
+          description: When true, only return a Placekey if the address matches exactly.
+        strict_name_match:
+          type: boolean
+          description: When true, only return a Placekey if the location_name matches exactly.
+        fields:
+          type: array
+          description: Additional response fields to return beyond query_id and placekey.
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human-readable error message.
+    PlacekeyResult:
+      type: object
+      properties:
+        query_id:
+          type: string
+          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
+        placekey:
+          type: string
+          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
+        error:
+          type: string
+          description: Present instead of placekey when the query could not be matched.
+      example:
+        query_id: '0'
+        placekey: 227-223@5vg-82n-pgk
+    BulkLookupRequest:
+      type: object
+      required:
+      - queries
+      properties:
+        queries:
+          type: array
+          maxItems: 100
+          description: An array of up to 100 location queries.
+          items:
+            $ref: '#/components/schemas/Query'
+        options:
+          $ref: '#/components/schemas/Options'
+    PlaceMetadata:
+      type: object
+      description: Optional additional metadata used to improve POI matching.
+      properties:
+        store_id:
+          type: string
+          description: A client-specific store identifier.
+        phone_number:
+          type: string
+          description: The phone number of the place.
+        website:
+          type: string
+          description: The website of the place.
+        naics_code:
+          type: string
+          description: The NAICS industry code for the place.
+        mcc_code:
+          type: string
+          description: The merchant category code for the place.
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Placekey API key supplied in the apikey request header.
