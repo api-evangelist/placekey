@@ -7,7 +7,20 @@ description: Placekey is a free, universal identifier for any physical place, de
   datasets. The Placekey API resolves an address or latitude/longitude into a single
   Placekey, supporting both single and bulk (up to 100 per batch) lookups for address
   matching, deduplication, and data enrichment.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/placekey.png
 tags:
 - Location
 - Geocoding
@@ -18,52 +31,46 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: placekey:placekey-lookup-api
-  name: Placekey Lookup API
-  tags:
-  - Lookup
-  - Address Matching
-  - Geocoding
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: placekey:placekey-bulk-api
+  name: Placekey Bulk API
+  description: The Bulk API from Placekey — 1 operation(s) for bulk.
   humanURL: https://docs.placekey.io/documentation/placekey-api/quick-start
   baseURL: https://api.placekey.io/v1
-  properties:
-  - url: https://docs.placekey.io/documentation/placekey-api/quick-start
-    type: Documentation
-  - url: https://docs.placekey.io/documentation/placekey-api/response
-    type: APIReference
-  - url: openapi/placekey-openapi.yml
-    type: OpenAPI
-  - url: collections/placekey.postman_collection.json
-    type: PostmanCollection
-  - url: collections/placekey.opencollection.json
-    type: OpenCollection
-  description: Resolves a single address, point-of-interest, or latitude/longitude
-    coordinate pair into a universal Placekey identifier via POST /placekey, using
-    the apikey header for authentication.
-- aid: placekey:placekey-bulk-lookup-api
-  name: Placekey Bulk Lookup API
   tags:
   - Bulk
-  - Batch
-  - Address Matching
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.placekey.io/documentation/placekey-api/bulk-api
-  baseURL: https://api.placekey.io/v1
   properties:
-  - url: https://docs.placekey.io/documentation/placekey-api/bulk-api
-    type: Documentation
-  - url: https://docs.placekey.io/documentation/placekey-api/response
-    type: APIReference
-  - url: openapi/placekey-openapi.yml
-    type: OpenAPI
-  - url: collections/placekey.postman_collection.json
-    type: PostmanCollection
-  - url: collections/placekey.opencollection.json
-    type: OpenCollection
-  description: Resolves up to 100 queries per request into Placekey identifiers via
-    POST /placekeys, with an optional per-query query_id echoed back; all queries
-    in a batch must share the same iso_country_code.
+  - type: OpenAPI
+    url: openapi/placekey-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.placekey.io/documentation/placekey-api/quick-start
+  - type: APIReference
+    url: https://docs.placekey.io/documentation/placekey-api/response
+  - type: PostmanCollection
+    url: collections/placekey.postman_collection.json
+  - type: OpenCollection
+    url: collections/placekey.opencollection.json
+  - type: Documentation
+    url: https://docs.placekey.io/documentation/placekey-api/bulk-api
+- aid: placekey:placekey-lookup-api
+  name: Placekey Lookup API
+  description: The Lookup API from Placekey — 1 operation(s) for lookup.
+  humanURL: https://docs.placekey.io/documentation/placekey-api/quick-start
+  baseURL: https://api.placekey.io/v1
+  tags:
+  - Lookup
+  properties:
+  - type: OpenAPI
+    url: openapi/placekey-lookup-api-openapi.yml
+  - type: Documentation
+    url: https://docs.placekey.io/documentation/placekey-api/quick-start
+  - type: APIReference
+    url: https://docs.placekey.io/documentation/placekey-api/response
+  - type: PostmanCollection
+    url: collections/placekey.postman_collection.json
+  - type: OpenCollection
+    url: collections/placekey.opencollection.json
+  - type: Documentation
+    url: https://docs.placekey.io/documentation/placekey-api/bulk-api
 common:
 - type: AgenticAccess
   url: agentic-access/placekey-agentic-access.yml
