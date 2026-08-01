@@ -1,0 +1,16 @@
+{
+  "provider": "placekey",
+  "sources": [
+    "placekey-bulk-api-openapi.yml",
+    "placekey-lookup-api-openapi.yml"
+  ],
+  "outputs": [
+    "placekey-bulk-api-openapi.yml",
+    "placekey-lookup-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
