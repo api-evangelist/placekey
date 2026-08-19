@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Placekey Bulk Lookup API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Look up a single Placekey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.placekey.io/v1/placekey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resolves a single query (address, POI, and/or latitude/longitude) into a Placekey. At minimum a latitude/longitude pair or a street address with sufficient locality information should be supplied."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

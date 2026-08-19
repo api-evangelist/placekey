@@ -1,0 +1,293 @@
+{
+  "item": [
+    {
+      "id": "26937254-9b59-42a5-962c-be1540d23305",
+      "name": "Bulk",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b7b49edd-bd3b-44a0-b819-ca3a1c913f01",
+          "name": "Look up Placekeys in bulk",
+          "request": {
+            "name": "Look up Placekeys in bulk",
+            "description": {
+              "content": "Resolves up to 100 queries in a single request. Each query may include an optional query_id that is echoed back in the response. All queries in a batch must share the same iso_country_code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "placekeys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"<string>\",\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"location_name\": \"<string>\",\n      \"street_address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"iso_country_code\": \"<string>\",\n      \"place_metadata\": {\n        \"store_id\": \"<string>\",\n        \"phone_number\": \"<string>\",\n        \"website\": \"<string>\",\n        \"naics_code\": \"<string>\",\n        \"mcc_code\": \"<string>\"\n      }\n    },\n    {\n      \"query_id\": \"<string>\",\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"location_name\": \"<string>\",\n      \"street_address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"iso_country_code\": \"<string>\",\n      \"place_metadata\": {\n        \"store_id\": \"<string>\",\n        \"phone_number\": \"<string>\",\n        \"website\": \"<string>\",\n        \"naics_code\": \"<string>\",\n        \"mcc_code\": \"<string>\"\n      }\n    }\n  ],\n  \"options\": {\n    \"strict_address_match\": \"<boolean>\",\n    \"strict_name_match\": \"<boolean>\",\n    \"fields\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f7c9b08-9972-4e7e-8359-abca96060510",
+              "name": "A list of Placekey results, one per query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "placekeys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"query_id\": \"0\",\n    \"placekey\": \"227-223@5vg-82n-pgk\"\n  },\n  {\n    \"query_id\": \"0\",\n    \"placekey\": \"227-223@5vg-82n-pgk\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5fd3ca7-4704-42d9-899a-3f0c172fd058",
+              "name": "Bad request - batch exceeds 100 queries or queries are malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "placekeys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55206d9d-ed48-4309-91ab-cb2996261768",
+              "name": "Unauthorized - missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "placekeys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d01aeafa-f29c-41d2-b476-f4d6f04f4914",
+              "name": "Too Many Requests - rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "placekeys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"query_id\": \"0\",\n      \"street_address\": \"1543 Mission Street, Floor 3\",\n      \"city\": \"San Francisco\",\n      \"region\": \"CA\",\n      \"postal_code\": \"94105\",\n      \"iso_country_code\": \"US\"\n    },\n    {\n      \"query_id\": \"1\",\n      \"latitude\": 37.7371,\n      \"longitude\": -122.44283,\n      \"iso_country_code\": \"US\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.placekey.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c88088a-2ff9-4131-8287-dca6e4e946d2",
+    "name": "Placekey Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Placekey API resolves an address, point-of-interest, or latitude/longitude coordinate pair into a Placekey - a free, universal identifier for any physical place. It supports single lookups (POST /placekey) and bulk lookups of up to 100 queries per request (POST /placekeys). Authentication is via the apikey request header.\n\nContact Support:\n Name: Placekey Support",
+      "type": "text/plain"
+    }
+  }
+}
