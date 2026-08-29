@@ -7,6 +7,18 @@ description: Placekey is a free, universal identifier for any physical place, de
   datasets. The Placekey API resolves an address or latitude/longitude into a single
   Placekey, supporting both single and bulk (up to 100 per batch) lookups for address
   matching, deduplication, and data enrichment.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
