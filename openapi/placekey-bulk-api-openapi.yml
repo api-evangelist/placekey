@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Placekey Bulk API
   description: The Placekey API resolves an address, point-of-interest, or latitude/longitude coordinate pair into a Placekey - a free, universal identifier for any physical place. It supports single lookups (POST /placekey) and bulk lookups of up to 100 queries per request (POST /placekeys). Authentication is via the apikey request header.
@@ -61,6 +61,25 @@ paths:
           description: Too Many Requests - rate limit exceeded.
 components:
   schemas:
+    BulkLookupRequest:
+      type: object
+      required:
+      - queries
+      properties:
+        queries:
+          type: array
+          maxItems: 100
+          description: An array of up to 100 location queries.
+          items:
+            $ref: '#/components/schemas/Query'
+        options:
+          $ref: '#/components/schemas/Options'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human-readable error message.
     Query:
       type: object
       description: A location query. Provide a latitude/longitude pair and/or address components. Including more fields generally improves match quality.
@@ -96,55 +115,6 @@ components:
           description: Two-character ISO 3166-1 alpha-2 country code (e.g. US).
         place_metadata:
           $ref: '#/components/schemas/PlaceMetadata'
-    Options:
-      type: object
-      description: Options applied to all queries in the request.
-      properties:
-        strict_address_match:
-          type: boolean
-          description: When true, only return a Placekey if the address matches exactly.
-        strict_name_match:
-          type: boolean
-          description: When true, only return a Placekey if the location_name matches exactly.
-        fields:
-          type: array
-          description: Additional response fields to return beyond query_id and placekey.
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: A human-readable error message.
-    PlacekeyResult:
-      type: object
-      properties:
-        query_id:
-          type: string
-          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
-        placekey:
-          type: string
-          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
-        error:
-          type: string
-          description: Present instead of placekey when the query could not be matched.
-      example:
-        query_id: '0'
-        placekey: 227-223@5vg-82n-pgk
-    BulkLookupRequest:
-      type: object
-      required:
-      - queries
-      properties:
-        queries:
-          type: array
-          maxItems: 100
-          description: An array of up to 100 location queries.
-          items:
-            $ref: '#/components/schemas/Query'
-        options:
-          $ref: '#/components/schemas/Options'
     PlaceMetadata:
       type: object
       description: Optional additional metadata used to improve POI matching.
@@ -164,6 +134,36 @@ components:
         mcc_code:
           type: string
           description: The merchant category code for the place.
+    Options:
+      type: object
+      description: Options applied to all queries in the request.
+      properties:
+        strict_address_match:
+          type: boolean
+          description: When true, only return a Placekey if the address matches exactly.
+        strict_name_match:
+          type: boolean
+          description: When true, only return a Placekey if the location_name matches exactly.
+        fields:
+          type: array
+          description: Additional response fields to return beyond query_id and placekey.
+          items:
+            type: string
+    PlacekeyResult:
+      type: object
+      properties:
+        query_id:
+          type: string
+          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
+        placekey:
+          type: string
+          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
+        error:
+          type: string
+          description: Present instead of placekey when the query could not be matched.
+      example:
+        query_id: '0'
+        placekey: 227-223@5vg-82n-pgk
   securitySchemes:
     apiKey:
       type: apiKey
