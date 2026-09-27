@@ -61,25 +61,6 @@ paths:
           description: Too Many Requests - rate limit exceeded.
 components:
   schemas:
-    BulkLookupRequest:
-      type: object
-      required:
-      - queries
-      properties:
-        queries:
-          type: array
-          maxItems: 100
-          description: An array of up to 100 location queries.
-          items:
-            $ref: '#/components/schemas/Query'
-        options:
-          $ref: '#/components/schemas/Options'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: A human-readable error message.
     Query:
       type: object
       description: A location query. Provide a latitude/longitude pair and/or address components. Including more fields generally improves match quality.
@@ -134,21 +115,19 @@ components:
         mcc_code:
           type: string
           description: The merchant category code for the place.
-    Options:
+    BulkLookupRequest:
       type: object
-      description: Options applied to all queries in the request.
+      required:
+      - queries
       properties:
-        strict_address_match:
-          type: boolean
-          description: When true, only return a Placekey if the address matches exactly.
-        strict_name_match:
-          type: boolean
-          description: When true, only return a Placekey if the location_name matches exactly.
-        fields:
+        queries:
           type: array
-          description: Additional response fields to return beyond query_id and placekey.
+          maxItems: 100
+          description: An array of up to 100 location queries.
           items:
-            type: string
+            $ref: '#/components/schemas/Query'
+        options:
+          $ref: '#/components/schemas/Options'
     PlacekeyResult:
       type: object
       properties:
@@ -164,6 +143,27 @@ components:
       example:
         query_id: '0'
         placekey: 227-223@5vg-82n-pgk
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human-readable error message.
+    Options:
+      type: object
+      description: Options applied to all queries in the request.
+      properties:
+        strict_address_match:
+          type: boolean
+          description: When true, only return a Placekey if the address matches exactly.
+        strict_name_match:
+          type: boolean
+          description: When true, only return a Placekey if the location_name matches exactly.
+        fields:
+          type: array
+          description: Additional response fields to return beyond query_id and placekey.
+          items:
+            type: string
   securitySchemes:
     apiKey:
       type: apiKey
