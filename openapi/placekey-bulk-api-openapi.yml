@@ -96,6 +96,12 @@ components:
           description: Two-character ISO 3166-1 alpha-2 country code (e.g. US).
         place_metadata:
           $ref: '#/components/schemas/PlaceMetadata'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human-readable error message.
     PlaceMetadata:
       type: object
       description: Optional additional metadata used to improve POI matching.
@@ -115,6 +121,21 @@ components:
         mcc_code:
           type: string
           description: The merchant category code for the place.
+    Options:
+      type: object
+      description: Options applied to all queries in the request.
+      properties:
+        strict_address_match:
+          type: boolean
+          description: When true, only return a Placekey if the address matches exactly.
+        strict_name_match:
+          type: boolean
+          description: When true, only return a Placekey if the location_name matches exactly.
+        fields:
+          type: array
+          description: Additional response fields to return beyond query_id and placekey.
+          items:
+            type: string
     BulkLookupRequest:
       type: object
       required:
@@ -143,27 +164,6 @@ components:
       example:
         query_id: '0'
         placekey: 227-223@5vg-82n-pgk
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: A human-readable error message.
-    Options:
-      type: object
-      description: Options applied to all queries in the request.
-      properties:
-        strict_address_match:
-          type: boolean
-          description: When true, only return a Placekey if the address matches exactly.
-        strict_name_match:
-          type: boolean
-          description: When true, only return a Placekey if the location_name matches exactly.
-        fields:
-          type: array
-          description: Additional response fields to return beyond query_id and placekey.
-          items:
-            type: string
   securitySchemes:
     apiKey:
       type: apiKey
