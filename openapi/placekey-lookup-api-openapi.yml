@@ -64,6 +64,64 @@ paths:
           description: Too Many Requests - rate limit exceeded.
 components:
   schemas:
+    PlacekeyResult:
+      type: object
+      properties:
+        query_id:
+          type: string
+          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
+        placekey:
+          type: string
+          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
+        error:
+          type: string
+          description: Present instead of placekey when the query could not be matched.
+      example:
+        query_id: '0'
+        placekey: 227-223@5vg-82n-pgk
+    Options:
+      type: object
+      description: Options applied to all queries in the request.
+      properties:
+        strict_address_match:
+          type: boolean
+          description: When true, only return a Placekey if the address matches exactly.
+        strict_name_match:
+          type: boolean
+          description: When true, only return a Placekey if the location_name matches exactly.
+        fields:
+          type: array
+          description: Additional response fields to return beyond query_id and placekey.
+          items:
+            type: string
+    SingleLookupRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          $ref: '#/components/schemas/Query'
+        options:
+          $ref: '#/components/schemas/Options'
+    PlaceMetadata:
+      type: object
+      description: Optional additional metadata used to improve POI matching.
+      properties:
+        store_id:
+          type: string
+          description: A client-specific store identifier.
+        phone_number:
+          type: string
+          description: The phone number of the place.
+        website:
+          type: string
+          description: The website of the place.
+        naics_code:
+          type: string
+          description: The NAICS industry code for the place.
+        mcc_code:
+          type: string
+          description: The merchant category code for the place.
     Query:
       type: object
       description: A location query. Provide a latitude/longitude pair and/or address components. Including more fields generally improves match quality.
@@ -105,64 +163,6 @@ components:
         error:
           type: string
           description: A human-readable error message.
-    PlaceMetadata:
-      type: object
-      description: Optional additional metadata used to improve POI matching.
-      properties:
-        store_id:
-          type: string
-          description: A client-specific store identifier.
-        phone_number:
-          type: string
-          description: The phone number of the place.
-        website:
-          type: string
-          description: The website of the place.
-        naics_code:
-          type: string
-          description: The NAICS industry code for the place.
-        mcc_code:
-          type: string
-          description: The merchant category code for the place.
-    SingleLookupRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          $ref: '#/components/schemas/Query'
-        options:
-          $ref: '#/components/schemas/Options'
-    Options:
-      type: object
-      description: Options applied to all queries in the request.
-      properties:
-        strict_address_match:
-          type: boolean
-          description: When true, only return a Placekey if the address matches exactly.
-        strict_name_match:
-          type: boolean
-          description: When true, only return a Placekey if the location_name matches exactly.
-        fields:
-          type: array
-          description: Additional response fields to return beyond query_id and placekey.
-          items:
-            type: string
-    PlacekeyResult:
-      type: object
-      properties:
-        query_id:
-          type: string
-          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
-        placekey:
-          type: string
-          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
-        error:
-          type: string
-          description: Present instead of placekey when the query could not be matched.
-      example:
-        query_id: '0'
-        placekey: 227-223@5vg-82n-pgk
   securitySchemes:
     apiKey:
       type: apiKey
