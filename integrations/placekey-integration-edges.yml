@@ -19,7 +19,7 @@ edges:
     - RESO Common Format 2.0 Certified
     summary_url: https://certification.reso.org/summary/T00000193
     detected_by: sweep-real-estate.py
-    detected: '2026-10-13'
+    detected: '2026-10-14'
 generated: '2026-10-13'
 method: searched
 checked:
