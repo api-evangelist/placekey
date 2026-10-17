@@ -64,21 +64,12 @@ paths:
           description: Too Many Requests - rate limit exceeded.
 components:
   schemas:
-    PlacekeyResult:
+    ErrorResponse:
       type: object
       properties:
-        query_id:
-          type: string
-          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
-        placekey:
-          type: string
-          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
         error:
           type: string
-          description: Present instead of placekey when the query could not be matched.
-      example:
-        query_id: '0'
-        placekey: 227-223@5vg-82n-pgk
+          description: A human-readable error message.
     Options:
       type: object
       description: Options applied to all queries in the request.
@@ -94,15 +85,21 @@ components:
           description: Additional response fields to return beyond query_id and placekey.
           items:
             type: string
-    SingleLookupRequest:
+    PlacekeyResult:
       type: object
-      required:
-      - query
       properties:
-        query:
-          $ref: '#/components/schemas/Query'
-        options:
-          $ref: '#/components/schemas/Options'
+        query_id:
+          type: string
+          description: The identifier for this query, echoed back if supplied, otherwise a generated sequential value.
+        placekey:
+          type: string
+          description: The Placekey identifier for the resolved place (e.g. 227-223@5vg-82n-pgk).
+        error:
+          type: string
+          description: Present instead of placekey when the query could not be matched.
+      example:
+        query_id: '0'
+        placekey: 227-223@5vg-82n-pgk
     PlaceMetadata:
       type: object
       description: Optional additional metadata used to improve POI matching.
@@ -157,12 +154,15 @@ components:
           description: Two-character ISO 3166-1 alpha-2 country code (e.g. US).
         place_metadata:
           $ref: '#/components/schemas/PlaceMetadata'
-    ErrorResponse:
+    SingleLookupRequest:
       type: object
+      required:
+      - query
       properties:
-        error:
-          type: string
-          description: A human-readable error message.
+        query:
+          $ref: '#/components/schemas/Query'
+        options:
+          $ref: '#/components/schemas/Options'
   securitySchemes:
     apiKey:
       type: apiKey
