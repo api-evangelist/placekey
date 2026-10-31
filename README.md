@@ -1,4 +1,4 @@
-# Placekey (placekey)
+# Placekey
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,76 +66,118 @@
 
 Placekey is a free, universal identifier for any physical place, designed to make it easy to join and match address and point-of-interest data across disparate datasets. The Placekey API resolves an address or latitude/longitude into a single Placekey, supporting both single and bulk (up to 100 per batch) lookups for address matching, deduplication, and data enrichment.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/placekey/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/placekey/refs/heads/main/apis.yml)
+**Areas:** Location · Geocoding · Address Matching · Identifiers · POI · Geospatial
 
-## Tags
+## Placekey on APIs.io
 
-- Location
-- Geocoding
-- Address Matching
-- Identifiers
-- POI
+Everything profiled for Placekey is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/placekey/](https://apis.io/providers/placekey/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (2)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Placekey Bulk API](https://apis.io/apis/placekey/placekey-bulk-api/) — The Bulk API from Placekey — 1 operation(s) for bulk.
+- [Placekey Lookup API](https://apis.io/apis/placekey/placekey-lookup-api/) — The Lookup API from Placekey — 1 operation(s) for lookup.
 
-## APIs
+### Published properties
 
-### Placekey Lookup API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Resolves a single address, point-of-interest, or latitude/longitude coordinate pair into a universal Placekey identifier via POST /placekey, using the apikey header for authentication.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.placekey.io/documentation/placekey-api/quick-start](https://docs.placekey.io/documentation/placekey-api/quick-start)
-- **Base URL:** `https://api.placekey.io/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Placekey Agentic Access](https://apis.io/agentic-access/placekey/placekey-agentic-access/)
 
-- Lookup
-- Address Matching
-- Geocoding
+#### Collections (3)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.placekey.io/documentation/placekey-api/quick-start)
-- [API Reference](https://docs.placekey.io/documentation/placekey-api/response)
-- [OpenAPI](openapi/placekey-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/placekey.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/placekey.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Placekey API](https://apis.io/collections/placekey/open-placekey/)
+- [Placekey Bulk API](https://apis.io/collections/placekey/open-placekey-bulk-api/)
+- [Placekey Bulk Lookup API](https://apis.io/collections/placekey/open-placekey-lookup-api/)
 
-### Placekey Bulk Lookup API
+#### Security (2)
 
-Resolves up to 100 queries per request into Placekey identifiers via POST /placekeys, with an optional per-query query_id echoed back; all queries in a batch must share the same iso_country_code.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.placekey.io/documentation/placekey-api/bulk-api](https://docs.placekey.io/documentation/placekey-api/bulk-api)
-- **Base URL:** `https://api.placekey.io/v1`
+- [Placekey Authentication](https://apis.io/security/placekey/placekey-authentication/)
+- [Placekey Domain Security](https://apis.io/security/placekey/placekey-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Bulk
-- Batch
-- Address Matching
+Published plans, tiers and prices.
 
-#### Properties
+- [Placekey Plans Pricing](https://apis.io/plans/placekey/placekey-plans-pricing/)
 
-- [Documentation](https://docs.placekey.io/documentation/placekey-api/bulk-api)
-- [API Reference](https://docs.placekey.io/documentation/placekey-api/response)
-- [OpenAPI](openapi/placekey-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/placekey.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/placekey.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-## Common Properties
+Published request limits.
 
-- [GitHub Organization](https://github.com/Placekey)
-- [LinkedIn](https://www.linkedin.com/company/placekey)
+- [Placekey Rate Limits](https://apis.io/rate-limits/placekey/placekey-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Placekey Finops](https://apis.io/finops/placekey/placekey-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.placekey.io)
 - [Documentation](https://docs.placekey.io)
-- [Plans](plans/placekey-plans-pricing.yml)
-- [Rate Limits](rate-limits/placekey-rate-limits.yml)
-- [Fin Ops](finops/placekey-finops.yml)
+- [Blog](https://www.placekey.io/blog)
+- [GitHub](https://github.com/Placekey)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 28.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 54.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/placekey/](https://apis.io/providers/placekey/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Placekey: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/placekey/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
